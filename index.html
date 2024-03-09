@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@300&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="normalize.css" />
+    <link rel="stylesheet" href="all.min.css" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="weather-app">
+        <div class="header">
+          <div class="input">
+            <input
+            class="input-data"
+              type="text"
+              placeholder="Search for your preffered city..." />
+          </div>
+          <button class="search">Search</button>
+          <button class="current-location">
+            <img src="images/current location icon.png" alt="" />Current
+            Location
+          </button>
+        </div>
+        <!-- Second boxes-->
+        <div class="boxes">
+          <div class="time-box">
+            <span class="city-name">Bursa</span>
+            <h2 class="time">09:03</h2>
+            <span class="date">Thursday,31 Aug</span>
+          </div>
+          <div class="current-weather">
+            <div class="col-one">
+              <span class="temp">24°C</span>
+              <span class="feels-like">Feels like 22°C</span>
+              <div class="sunrice">
+                <img src="images/sunrise.png" alt="" />
+                <div class="sunrice">
+                  <span>Sunrice</span>
+                  <span class="date">06:37 AM</span>
+                </div>
+              </div>
+              <div class="sunset">
+                <img src="images/sunset.png" alt="" />
+                <div>
+                  <span>Sunset</span>
+                  <span class="date">20:37 AM</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-two">
+              <img src="images/sunny-icon.png" alt="" />
+              <span class="weather-type">Sunny</span>
+            </div>
+
+            <div class="col-three">
+              <div class="humidity">
+                <img src="images/humidity.png" alt="" />
+                <span class="ration">41%</span>
+                <span>Humidity</span>
+              </div>
+
+              <div class="wind">
+                <img src="images/wind.png" alt="" />
+                <span class="ration">41%</span>
+                <span>Wind Speed</span>
+              </div>
+
+              <div class="pressure">
+                <img src="images/pressure.png" alt="" />
+                <span class="ration">41%</span>
+                <span>Pressure</span>
+              </div>
+
+              <div class="uv">
+                <img src="images/uv.png" alt="" />
+                <span class="ration">41%</span>
+                <span>Uv</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="boxes">
+          <div class="daily-forecast">
+            <span class="head">5 Days Forecast:</span>
+            <div class="day-1">
+              <img src="images/clouds.png" alt="" />
+              <span class="temp">20°C</span>
+              <span class="date">Friday, 1 Sep</span>
+            </div>
+
+            <div class="day-2">
+              <img src="images/mist.png" alt="" />
+              <span class="temp">22°C</span>
+              <span class="date">Saturday, 2 Sep</span>
+            </div>
+
+            <div class="day-3">
+              <img src="images/sunny-icon.png" alt="" />
+              <span class="temp">27°C</span>
+              <span class="date">Sunday, 3 Sep</span>
+            </div>
+
+            <div class="day-4">
+              <img src="images/drizzle.png" alt="" />
+              <span class="temp">18°C</span>
+              <span class="date">Monday, 4 Sep</span>
+            </div>
+
+            <div class="day-5">
+              <img src="images/rain.png" alt="" />
+              <span class="temp">16°C</span>
+              <span class="date">Tuesday, 5 Sep</span>
+            </div>
+          </div>
+          <div class="hourly-forecast">
+           <span class="head">Hourly Forecast Tomorrow</span>
+           <div class="parent">
+            <div class="hour-1">
+              <span class="time">12:00</span>
+              <img src="images/mist.png" alt="" />
+              <span class="temp">22°C</span>
+              <img src="images/navigation.png" alt="" style="rotate: 5deg;" />
+              <span class="wind">3km/h</span>
+            </div>
+
+            <div class="hour-2">
+              <span class="time">12:00</span>
+              <img src="images/mist.png" alt="" />
+              <span class="temp">22°C</span>
+              <img src="images/navigation.png" alt="" style="rotate: 12deg;" />
+              <span class="wind">3km/h</span>
+            </div>
+
+            <div class="hour-3">
+              <span class="time">12:00</span>
+              <img src="images/clouds.png" alt="" />
+              <span class="temp">22°C</span>
+              <img src="images/navigation.png" alt="" style="rotate: -9deg;" />
+              <span class="wind">3km/h</span>
+            </div>
+
+            <div class="hour-4">
+              <span class="time">12:00</span>
+              <img src="images/drizzle.png" alt="" />
+              <span class="temp">22°C</span>
+              <img src="images/navigation.png" alt="" style="rotate: 5deg;"/>
+              <span class="wind">3km/h</span>
+            </div>
+
+            <div class="hour-5">
+              <span class="time">12:00</span>
+              <img src="images/rain.png" alt="" />
+              <span class="temp">22°C</span>
+              <img src="images/navigation.png" alt="" style="rotate: -8deg;"/>
+              <span class="wind">3km/h</span>
+            </div>
+           </div>
+        </div>
+      </div>
+    </div>
+    <div class="city-not-found">
+      <img src="images/city-not-found.png" alt="">
+      <span>Oops! City not found</span>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>
