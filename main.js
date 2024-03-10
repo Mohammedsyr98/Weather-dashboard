@@ -40,33 +40,21 @@ async function fetchWeather(cityName) {
 }
 let lat;
 let lon;
-function fetchWeatherData(city) {
-  fetchWeather(city)
+function fetchWeatherData(cityName) {
+  fetchWeather(cityName)
     .then((data) => {
       // get more days weather from api
-      console.log(data);
-      if (data.cod == "404") {
-        console.log("city not found");
-      }
       lat = data.coord.lat;
       lon = data.coord.lon;
       // Current time function
       function currentTime() {
         let cityName = document.querySelector(".city-name");
-        let currentTimeSpan = document.querySelector(".time");
         let currentDateSpan = document.querySelector(".time-box .date");
-
         currentTime = new Date(data.dt * 1000);
-        console.log(currentTime);
-        // Current time variables
-        let currentHour = currentTime.getHours();
-        let currentMinute = currentTime.getMinutes();
-        let currentSecond = currentTime.getSeconds();
+        // Current date variables
         let currentDay = dayNames[currentTime.getDay()];
         let currentMonth = monthNames[currentTime.getMonth()];
-        // insert current time variabels to page
         cityName.textContent = data.name;
-
         currentDateSpan.textContent =
           currentDay + "," + currentTime.getDate() + " " + currentMonth;
       }
@@ -122,6 +110,7 @@ function fetchWeatherData(city) {
         humiditySpan.textContent = humidity + " %";
         pressureSpan.textContent = pressure + " hPa";
       }
+      // start fetch api for uv index
       var myHeaders = new Headers();
       myHeaders.append("x-access-token", "openuv-bzd368rltfywxlc-io");
       myHeaders.append("Content-Type", "application/json");
@@ -131,7 +120,7 @@ function fetchWeatherData(city) {
         headers: myHeaders,
         redirect: "follow",
       };
-      // fetch api for uv index
+
       fetch(
         `https://api.openuv.io/api/v1/forecast?lat=${lat}&lng=${lon}&alt=100&dt=`,
         requestOptions
@@ -141,12 +130,14 @@ function fetchWeatherData(city) {
           let uvIndexSpan = document.querySelector(
             ".current-weather .uv .ration"
           );
-          console.log(result);
+          // insert current uv index to page
           uvIndexSpan.textContent = result.result[9].uv;
         })
         .catch((error) => console.log("error", error));
 
       currentWeather();
+      fetchWeather(cityName).then((data) => console.log(data));
+      console.log(data);
       return fetch(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&exclude=hourly&units=metric`
       );
@@ -157,7 +148,6 @@ function fetchWeatherData(city) {
       function dailyForecast() {
         // i for day index in data.list
         let i = 7;
-        console.log(data.list);
         let dayilyForecastBox = document.querySelectorAll(
           ".daily-forecast div"
         );
@@ -227,6 +217,7 @@ function fetchWeatherData(city) {
     .then((data) => {
       let lat = data.city.coord.lat;
       let lon = data.city.coord.lon;
+      // real time from api
       async function getTimeFromAPI() {
         let data;
         try {
@@ -245,7 +236,7 @@ function fetchWeatherData(city) {
           console.log(error);
         }
       }
-
+      // update time after called from api
       function updateTimeManually() {
         currentTime.second++;
         if (currentTime.second === 60) {
@@ -278,30 +269,23 @@ function fetchWeatherData(city) {
           console.error("Failed to fetch time from API:", error)
         );
     })
+    // if city found and all status are ok
     .then(() => animationBoxes())
+    // if city not found
     .catch(() => animationCityNotFound());
 }
 
-// add search button then check value from input
-// margin left and right boxes then ask chatgpt for make animation margin
-// start animation and set interval after click on mouse or enter
-// for city not found create box and test it
-
 let currentTime = { hour: 0, minute: 0, second: 0 };
 let currentTimeSpan = document.querySelector(".time");
-
-/*
- */
-
 let searchButton = document.querySelector(".search");
 let inputData = document.querySelector(".input-data");
 let currentLocation = document.querySelector(".current-location");
+// when the user clicked on search button
 searchButton.addEventListener("click", function () {
   if (inputData.value != "") {
     clearInterval(intervalId);
-    fetchWeatherData(inputData.value);
-
     // start fetch
+    fetchWeatherData(inputData.value);
   }
 });
 // get lat and lon with click
@@ -312,9 +296,11 @@ currentLocation.addEventListener("click", () =>
 // fetch city name with lat and lon after click
 
 function success(pos) {
+  // clearInterval is for current time
   clearInterval(intervalId);
   currentTime = { hour: 0, minute: 0, second: 0 };
   const crd = pos.coords;
+  // get city name from the latitude and longitude
   async function getCityName() {
     let lat = crd.latitude;
     let lon = crd.longitude;
@@ -324,7 +310,7 @@ function success(pos) {
     let data = response.json();
     return data;
   }
-  // fetch weather with caity name
+  // fetch weather with city name
   getCityName().then((data) => fetchWeatherData(data.items[0].address.county));
   getCityName();
 }
@@ -332,7 +318,7 @@ function success(pos) {
 function error(err) {
   console.warn(`ERROR(${err.code}): ${err.message}`);
 }
-
+// animation boxs start when the city is found and status are ok
 function animationBoxes() {
   let headerBox = document.querySelector(".header");
   let timeBox = document.querySelector(".time-box");
@@ -349,23 +335,18 @@ function animationBoxes() {
   dailyForecastBox.classList.add("daily-forecast-animation");
   hourlyForecatBox.classList.add("hourly-forecast-animation");
 }
+// if the city is not found
 function animationCityNotFound() {
   let headerBox = document.querySelector(".header");
   headerBox.classList.add("header-animation");
-
   let cityNotFound = document.querySelector(".city-not-found");
   cityNotFound.classList.add("city-not-found-animation");
 }
-
+// for enter key press
 inputData.addEventListener("keypress", function (event) {
-  // التأكد من أن المفتاح الذي تم الضغط عليه هو Enter (القيمة 13)
-
   if (event.keyCode === 13) {
-    // منع سلوك النموذج الافتراضي
     event.preventDefault();
-    // قم بتنفيذ البحث هنا
     if (inputData.value.trim() !== "") {
-      // التحقق من أن حقل الإدخال غير فارغ
       clearInterval(intervalId);
       fetchWeatherData(inputData.value.trim());
     }
